@@ -1,0 +1,16 @@
+/* body{background: white;} */
+.fullTable,.fullTableTitle{
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+
+.active{
+  background: red;
+}
+.active button{
+  background: none;
+  border: none;
+}
+
