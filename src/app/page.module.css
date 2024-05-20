@@ -1,16 +1,30 @@
-/* body{background: white;} */
 .fullTable,.fullTableTitle{
   display: flex;
-  justify-content: space-between;
-  
+  justify-content: center;
 }
-
-
-.active{
-  background: red;
+.fullTable ul{
+  list-style: none;
 }
-.active button{
+.fullTable button,.fullTable p{
   background: none;
   border: none;
+  font-size: 30px;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 15px;
+}
+.tableHolder{
+  border: 1px solid red;
+  width: 100%;
+  max-width: 350px;
+  font-size: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%);
+}
+.active{
+  background: red;
 }
 

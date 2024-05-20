@@ -10,6 +10,8 @@ export default function Home() {
   const [numbers,setNumbers] = useState<number[][]>([])
 
   const columns = [1,21,41,61,81];
+
+  const bingo = ['b','i','n','g','o'];
   const generateTable = (min:number) =>{
     const max = min + 19
     const finalArr :number[]= []
@@ -26,7 +28,6 @@ export default function Home() {
       setNumbers(newTable)
     }
     ,[])
-    console.log('setNumbers',selectedNumbers)
    const handleClick = (number:number) => {
     if(selectedNumbers.includes(number)){
       setSelectedNumbers(selectedNumbers.filter(item=>item!=number))
@@ -37,17 +38,11 @@ export default function Home() {
   return (
    <div>
     <Header/>
-    <div>
-      <div className={styles.fullTableTitle}>
-            <p>B</p>
-            <p>I</p>
-            <p>N</p>
-            <p>G</p>
-            <p>O</p>
-          </div>
+    <div className={styles.tableHolder}>
       <div className={styles.fullTable}>
         {columns.map((itm,idx)=>
           <ul key={itm}>  
+            <li><p>{bingo[idx]}</p></li>
             {numbers[idx]?.map(item=>
               <li key={item} className={selectedNumbers.includes(item)?styles.active:''}>
                 <button onClick={()=>handleClick(item)}>{item}</button>
