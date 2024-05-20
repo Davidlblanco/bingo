@@ -5,6 +5,13 @@
 .fullTable ul{
   list-style: none;
 }
+.fullTable li:first-child{
+  background: #2193b0;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #fff;
+  font-weight: 700;
+}
 .fullTable button,.fullTable p{
   background: none;
   border: none;
@@ -12,19 +19,24 @@
   width: 100%;
   text-align: center;
   text-transform: uppercase;
-  padding: 15px;
+  border: 1px solid #000;
+  width: 66px;
+  height: 66px;
+  line-height: 66px;
 }
 .tableHolder{
-  border: 1px solid red;
+  border: 3px solid #000;
   width: 100%;
-  max-width: 350px;
+  max-width: fit-content;
   font-size: 30px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50% , -50%);
+  border-radius: 6px;
+  
 }
 .active{
-  background: red;
+  background: #6dd5ed;
+  position: relative;
 }
-
