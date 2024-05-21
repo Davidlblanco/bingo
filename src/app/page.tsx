@@ -1,6 +1,6 @@
 "use client";
 import React,{useEffect, useState} from "react";
-import Header from "./components/Header";
+// import Header from "./components/Header";
 
 
 import styles from "./page.module.css";
@@ -40,7 +40,7 @@ export default function Home() {
    }
   return (
    <div>
-    <Header/>
+    {/* <Header/> */}
     <div className={styles.tableHolder}>
       <div className={styles.fullTable}>
         {columns.map((itm,idx)=>
