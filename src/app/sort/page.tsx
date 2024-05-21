@@ -25,15 +25,17 @@ export default function Page() {
 
   return (
     <div className={styles.sort}>
-      {/* <Header /> */}
-      {gameId?`id: ${gameId}`:null}
-      {sortedNumbers.length>0?<div  className={styles.lastNumber}>Último número: {sortedNumbers[sortedNumbers.length -1]}</div>:null}
-      {lastItems.length>0?
-        <div>Últimos 5 números: 
-          <ul className={styles.lastFive}>
-            {lastItems.map(item=><li key={item}>{item}</li>)}
-          </ul>
-        </div>:null}
+
+      <div className={styles.topInfo}>
+        <p className={styles.gameId}>Jogo: {gameId?gameId:'--'}</p>
+        <div  className={styles.lastNumber}>{sortedNumbers[sortedNumbers.length -1]||`--`}</div>
+          <div>
+            <ul className={styles.lastFive}>
+              {lastItems.map(item=><li key={item}>{item}</li>)}
+            </ul>
+          </div>
+      </div>
+        {/* :null} */}
         <div className={styles.fullTableTitle}>
           <p>B</p>
           <p>I</p>
@@ -46,8 +48,10 @@ export default function Page() {
           <div key={number} className={sortedNumbers.includes(number)?styles.active:''}>{number}</div>,
         )}
       </div>
-      <button onClick={restart}>Novo Jogo</button>
-      <button onClick={handleClick} disabled={allNumbers.length===0||!gameId}>Sortear</button>
+      <div className={styles.bottomControls}>
+        <button onClick={restart}>Novo Jogo</button>
+        <button onClick={handleClick} disabled={allNumbers.length===0||!gameId}>Sortear</button>
+      </div>
 
     </div>
   )

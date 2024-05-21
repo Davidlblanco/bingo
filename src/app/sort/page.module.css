@@ -5,7 +5,7 @@
   text-align: center;
 }
 .fullTable div,.fullTableTitle p{
-  border: 1px solid #000;
+  border: 1px solid #666;
   width: 20vw;
   line-height: 20px;
 }
@@ -26,6 +26,17 @@
   display: grid;
   grid-template-columns: repeat(5, auto);
   list-style: none;
+  gap:8px
+}
+.lastFive li{
+  background: #2193b0; 
+  border-radius: 50%;
+  color: white;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .sort button{
   background: #2193b0;  /* fallback for old browsers */
@@ -37,4 +48,40 @@
 }
 .sort button:disabled{
   opacity: .3;
+}
+.lastNumber{
+  font-size: 40px;
+  font-weight: bold;
+  background: #2193b0; 
+  background: -webkit-linear-gradient(to bottom, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #6dd5ed, #2193b0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  color: white;
+  margin: 8px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.topInfo{
+  /* border-radius: 50%; */
+  width: 200px;
+  height: 150px;
+  /* border: 1px solid #2193b0; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 8px auto 16px;
+}
+.gameId{
+  font-size: 14px;
+}
+.bottomControls{
+  display: flex;
+  justify-content: space-around;
+  gap:8px;
+  margin-top: 16px;
 }
