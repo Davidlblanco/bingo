@@ -14,7 +14,9 @@ export function GET(request: Request) {
         return Response.json(game[0])
     }
     catch (e) {
-        return Response.json({ message: e })
+        return new Response(`Error: Game not found`, {
+            status: 400,
+        })
     }
 }
 
@@ -25,7 +27,9 @@ export async function POST() {
         games.push({ id, numbers: [] })
         return Response.json({ id, message: "Game succesfully created!" })
     } catch (e) {
-        return Response.json({ message: e })
+        return new Response(`Error: Could't create the game.`, {
+            status: 400,
+        })
     }
 }
 
@@ -40,6 +44,8 @@ export async function PATCH(request: Request) {
         })
         return Response.json({ currentGame: body, message: "Game succesfully modified!" })
     } catch (e) {
-        return Response.json({ message: e })
+        return new Response(`Error: Could't change the game. Check if the id is correct.`, {
+            status: 400,
+        })
     }
 }
