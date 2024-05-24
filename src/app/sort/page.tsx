@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-// import Header from '../components/Header'
 import styles from './page.module.css';
 
 export default function Page() {
@@ -20,11 +19,7 @@ export default function Page() {
       id: gameId,
       numbers,
     });
-    fetch('/api/', { method: 'PATCH', body: raw })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log('patch went fine');
-      });
+    fetch('/api/', { method: 'PATCH', body: raw });
   };
   const restart = () => {
     setSortedAllNumbers([]);
@@ -55,7 +50,6 @@ export default function Page() {
           </ul>
         </div>
       </div>
-      {/* :null} */}
       <div className={styles.fullTableTitle}>
         <p>B</p>
         <p>I</p>

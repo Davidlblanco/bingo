@@ -1,7 +1,5 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-// import Header from "./components/Header";
-
 import styles from './page.module.css';
 
 export default function Home() {
@@ -9,6 +7,8 @@ export default function Home() {
   const [numbers, setNumbers] = useState<number[][]>([]);
   const [gameNumber, setGameNumber] = useState<number>();
   const [checkNumbers, setCheckNumbers] = useState<number[]>([]);
+
+  const [checkedId, setCheckedId] = useState<number>(0);
 
   const columns = [1, 21, 41, 61, 81];
 
@@ -39,13 +39,21 @@ export default function Home() {
     }
   };
   async function handleCheck() {
+    if (checkNumbers.length > 0) {
+      setCheckNumbers([]);
+      setCheckedId(0);
+      return;
+    }
     const url = `/api${gameNumber ? '?id=' + gameNumber : ''}`;
     const res = await fetch(url)
       .then((res) => res.json())
       .then((res) => res);
     const currentGame = gameNumber ? res : res.games[res.games.length - 1];
-    setCheckNumbers(currentGame.numbers);
-    console.log('currentGame', currentGame);
+
+    if (currentGame?.numbers) {
+      setCheckedId(currentGame.id);
+      setCheckNumbers(currentGame.numbers);
+    }
   }
   function handleSetGameNumber(e: React.ChangeEvent<HTMLInputElement>) {
     const number = parseInt(e.target.value);
@@ -55,11 +63,9 @@ export default function Home() {
     }
     setGameNumber(number);
   }
-  console.log('checkNumbers', checkNumbers);
 
   return (
     <div>
-      {/* <Header/> */}
       <div className={styles.tableHolder}>
         <div className={styles.fullTable}>
           {columns.map((itm, idx) => (
@@ -70,14 +76,21 @@ export default function Home() {
               {numbers[idx]?.map((item, index) => (
                 <li
                   key={item}
-                  className={`${
+                  className={
                     selectedNumbers.includes(item) ? styles.active : ''
-                  } ${checkNumbers.includes(item) ? styles.checked : ''}`}
+                  }
                 >
                   {idx === 2 && index == 2 ? (
                     <p>🐣</p>
                   ) : (
-                    <button onClick={() => handleClick(item)}>{item}</button>
+                    <button
+                      className={
+                        checkNumbers.includes(item) ? styles.checked : ''
+                      }
+                      onClick={() => handleClick(item)}
+                    >
+                      {item}
+                    </button>
                   )}
                 </li>
               ))}
@@ -86,8 +99,15 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.check}>
-        <input type="number" onChange={handleSetGameNumber} />
-        <button onClick={handleCheck}> Conferir</button>
+        <p>Jogo Conferido: {checkedId > 0 ? checkedId : '--'}</p>
+        <div>
+          <input
+            type="number"
+            placeholder="Número do jogo"
+            onChange={handleSetGameNumber}
+          />
+          <button onClick={handleCheck}> Conferir</button>
+        </div>
       </div>
     </div>
   );
