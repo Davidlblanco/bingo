@@ -1,6 +1,6 @@
 
 .fullTable,.fullTableTitle{
-  
+
   display: flex;
   justify-content: center;
 }
@@ -14,7 +14,7 @@
   color: #fff;
   font-weight: 700;
 }
-.fullTable button,.fullTable p{
+.fullTable button,.fullTable li{
   background: none;
   border: none;
   font-size: 30px;

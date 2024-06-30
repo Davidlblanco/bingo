@@ -75,9 +75,7 @@ export default function Home() {
         <div className={styles.fullTable}>
           {columns.map((itm, idx) => (
             <ul key={itm}>
-              <li>
-                <p>{bingo[idx]}</p>
-              </li>
+              <li>{bingo[idx]}</li>
               {numbers[idx]?.map((item, index) => (
                 <li
                   key={item}
