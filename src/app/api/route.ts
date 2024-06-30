@@ -13,9 +13,15 @@ export async function GET(request: Request) {
     const id = searchParams.get('id');
     const all = searchParams.get('all');
     try {
-        const game = id ? await sql`SELECT * FROM Games WHERE id = ${id}` : await sql`SELECT * FROM Games`;
 
-        const finalResponse = all ? { ...game.rows } : { ...game.rows[game.rows.length - 1] }
+        const count =
+            await sql`SELECT COUNT(*) FROM Games`
+
+        const countNumber: number = parseInt(count.rows[0].count)
+
+        const game = all ? await sql`SELECT * FROM Games` : await sql`SELECT * FROM Games WHERE id = ${id || countNumber}`;
+
+        const finalResponse = { ...game.rows }
         return NextResponse.json({ games: finalResponse }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error }, { status: 500 });
