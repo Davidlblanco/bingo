@@ -49,7 +49,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((res) => res);
 
-    const currentGame = res.games;
+    const currentGame = res.games[0];
     if (currentGame?.numbers) {
       setCheckedId(currentGame.id);
       setCheckNumbers(currentGame.numbers);

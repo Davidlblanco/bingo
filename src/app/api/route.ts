@@ -21,7 +21,7 @@ export async function GET(request: Request) {
 
         const game = all ? await sql`SELECT * FROM Games` : await sql`SELECT * FROM Games WHERE id = ${id || countNumber}`;
 
-        const finalResponse = { ...game.rows }
+        const finalResponse = game.rows
         return NextResponse.json({ games: finalResponse }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ error }, { status: 500 });
