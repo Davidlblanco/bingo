@@ -1,4 +1,6 @@
+
 .fullTable,.fullTableTitle{
+  
   display: flex;
   justify-content: center;
 }
@@ -89,3 +91,26 @@
   margin: 0 10px 0 0;
   padding:0 0px 0 10px;
 }  
+
+.spinner{
+  font-size: 0;
+}
+.spinner{
+  width: 15px;
+  height: 15px;
+  border: 3px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 

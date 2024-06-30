@@ -7,7 +7,7 @@ export default function Home() {
   const [numbers, setNumbers] = useState<number[][]>([]);
   const [gameNumber, setGameNumber] = useState<number>();
   const [checkNumbers, setCheckNumbers] = useState<number[]>([]);
-
+  const [loadCheck, setLoadCheck] = useState(false);
   const [checkedId, setCheckedId] = useState<number>(0);
 
   const columns = [1, 21, 41, 61, 81];
@@ -39,11 +39,14 @@ export default function Home() {
     }
   };
   async function handleCheck() {
+    setLoadCheck(true);
     if (checkNumbers.length > 0) {
       setCheckNumbers([]);
       setCheckedId(0);
+      setLoadCheck(false);
       return;
     }
+
     const url = `/api${gameNumber ? '?id=' + gameNumber : ''}`;
     const res = await fetch(url)
       .then((res) => res.json())
@@ -53,6 +56,7 @@ export default function Home() {
     if (currentGame?.numbers) {
       setCheckedId(currentGame.id);
       setCheckNumbers(currentGame.numbers);
+      setLoadCheck(false);
     }
   }
   function handleSetGameNumber(e: React.ChangeEvent<HTMLInputElement>) {
@@ -63,7 +67,8 @@ export default function Home() {
     }
     setGameNumber(number);
   }
-
+  const checkButtonText =
+    checkNumbers.length > 0 ? 'Limpar conferidos' : 'Conferir';
   return (
     <div>
       <div className={styles.tableHolder}>
@@ -106,7 +111,13 @@ export default function Home() {
             placeholder="Número do jogo"
             onChange={handleSetGameNumber}
           />
-          <button onClick={handleCheck}> Conferir</button>
+          <button onClick={handleCheck} disabled={loadCheck}>
+            {loadCheck ? (
+              <span className={styles.spinner}></span>
+            ) : (
+              checkButtonText
+            )}
+          </button>
         </div>
       </div>
     </div>
