@@ -1,33 +1,48 @@
+import { sql } from '@vercel/postgres';
+import { NextResponse } from 'next/server';
 
 type game = {
     id: number,
     numbers: number[]
 }
-let games: game[] = []
 
-export function GET(request: Request) {
-    const { searchParams } = new URL(request.url)
-    const id = searchParams.get('id')
-    if (!id) return Response.json({ games })
+
+export async function GET(request: Request) {
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    const all = searchParams.get('all');
     try {
-        const game = games.filter(item => item.id === parseInt(id))
-        return Response.json(game[0])
-    }
-    catch (e) {
-        return new Response(`Error: Game not found`, {
-            status: 400,
-        })
+        const game = id ? await sql`SELECT * FROM Games WHERE id = ${id}` : await sql`SELECT * FROM Games`;
+
+        const finalResponse = all ? { ...game.rows } : { ...game.rows[game.rows.length - 1] }
+        return NextResponse.json({ games: finalResponse }, { status: 200 });
+    } catch (error) {
+        return NextResponse.json({ error }, { status: 500 });
     }
 }
 
 
 export async function POST() {
     try {
-        const id = games.length + 1
-        games.push({ id, numbers: [] })
-        return Response.json({ id, message: "Game succesfully created!" })
+        await sql`CREATE TABLE IF NOT EXISTS Games ( id SERIAL PRIMARY KEY, numbers INT[] );`;
+
+        const count =
+            await sql`SELECT COUNT(*) FROM Games`
+
+        const countNumber: number = parseInt(count.rows[0].count)
+
+        //createGame 
+        await sql`INSERT INTO Games(id, numbers) VALUES (${countNumber + 1}, '{}')`
+
+        const selectLastGame =
+            await sql`SELECT * FROM Games WHERE id = ${countNumber + 1}`;
+
+        const lastGame = selectLastGame.rows[0]
+
+        return NextResponse.json({ ...lastGame }, { status: 200 });
     } catch (e) {
-        return new Response(`Error: Could't create the game.`, {
+        return new Response(`Error: Could't create the game. ${e}`, {
             status: 400,
         })
     }
@@ -37,12 +52,14 @@ export async function POST() {
 export async function PATCH(request: Request) {
     try {
         const body: game = await request.json()
-        games.forEach(game => {
-            if (game.id === body.id) {
-                game.numbers = body.numbers
-            }
+
+        const newGame = `{${body.numbers.join(',')}}`;
+
+        await sql`UPDATE Games SET numbers = ${newGame}::integer[] WHERE id = ${body.id};`
+
+        return Response.json({
+            currentGame: body, message: "Game succesfully modified!"
         })
-        return Response.json({ currentGame: body, message: "Game succesfully modified!" })
     } catch (e) {
         return new Response(`Error: Could't change the game. Check if the id is correct.`, {
             status: 400,

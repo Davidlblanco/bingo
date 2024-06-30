@@ -48,8 +48,8 @@ export default function Home() {
     const res = await fetch(url)
       .then((res) => res.json())
       .then((res) => res);
-    const currentGame = gameNumber ? res : res.games[res.games.length - 1];
 
+    const currentGame = res.games;
     if (currentGame?.numbers) {
       setCheckedId(currentGame.id);
       setCheckNumbers(currentGame.numbers);
