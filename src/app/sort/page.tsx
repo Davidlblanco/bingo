@@ -51,11 +51,11 @@ export default function Page() {
         </div>
       </div>
       <div className={styles.fullTableTitle}>
-        <p>B</p>
-        <p>I</p>
-        <p>N</p>
-        <p>G</p>
-        <p>O</p>
+        <p translate="no">B</p>
+        <p translate="no">I</p>
+        <p translate="no">N</p>
+        <p translate="no">G</p>
+        <p translate="no">O</p>
       </div>
       <div className={styles.fullTable}>
         {numbers.map((number) => (
