@@ -1,6 +1,6 @@
 .fullTable,.fullTableTitle{
   display: grid;
-  grid-template-rows: repeat(20, auto);
+  grid-template-rows: repeat(15, auto);
   grid-template-columns: repeat(5, auto);
   text-align: center;
 }
@@ -50,7 +50,7 @@
   opacity: .3;
 }
 .lastNumber{
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
   background: #2193b0; 
   background: -webkit-linear-gradient(to bottom, #6dd5ed, #2193b0);  /* Chrome 10-25, Safari 5.1-6 */

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import styles from './page.module.css';
 
 export default function Page() {
-  const numbers = [...Array(101).keys()].splice(1);
+  const numbers = [...Array(76).keys()].splice(1);
   const [allNumbers, setAllNumbers] = useState(numbers);
   const [sortedNumbers, setSortedAllNumbers] = useState<number[]>([]);
   const [gameId, setGameId] = useState<number>();
@@ -35,11 +35,14 @@ export default function Page() {
       ? sortedNumbers
       : sortedNumbers.slice(Math.max(sortedNumbers.length - 5, 1));
 
+  const bingo = ['B', 'I', 'N', 'G', 'O'];
   return (
     <div className={styles.sort}>
       <div className={styles.topInfo}>
         <p className={styles.gameId}>Jogo: {gameId ? gameId : '--'}</p>
         <div className={styles.lastNumber}>
+          {bingo[Math.floor(sortedNumbers[sortedNumbers.length - 1] / 16)]}{' '}
+          {/* {` - `} */}
           {sortedNumbers[sortedNumbers.length - 1] || `--`}
         </div>
         <div>
@@ -51,11 +54,9 @@ export default function Page() {
         </div>
       </div>
       <div className={styles.fullTableTitle}>
-        <p translate="no">B</p>
-        <p translate="no">I</p>
-        <p translate="no">N</p>
-        <p translate="no">G</p>
-        <p translate="no">O</p>
+        {bingo.map((letter) => (
+          <p translate="no">{letter}</p>
+        ))}
       </div>
       <div className={styles.fullTable}>
         {numbers.map((number) => (

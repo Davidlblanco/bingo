@@ -10,17 +10,18 @@ export default function Home() {
   const [loadCheck, setLoadCheck] = useState(false);
   const [checkedId, setCheckedId] = useState<number>(0);
 
-  const columns = [1, 21, 41, 61, 81];
+  const columns = [1, 16, 31, 46, 61];
 
   const bingo = ['b', 'i', 'n', 'g', 'o'];
   function compareNumbers(a: number, b: number) {
     return a - b;
   }
   const generateTable = (min: number) => {
-    const max = min + 19;
+    const max = min + 14;
     const finalArr: number[] = [];
     while (finalArr.length < 5) {
       const random = Math.floor(Math.random() * (max - min + 1) + min);
+      console.log('random', random);
       if (!finalArr.includes(random)) {
         finalArr.push(random);
       }
