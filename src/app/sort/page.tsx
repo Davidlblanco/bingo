@@ -41,8 +41,8 @@ export default function Page() {
       <div className={styles.topInfo}>
         <p className={styles.gameId}>Jogo: {gameId ? gameId : '--'}</p>
         <div className={styles.lastNumber}>
-          {bingo[Math.floor(sortedNumbers[sortedNumbers.length - 1] / 16)]}{' '}
-          {/* {` - `} */}
+          {bingo[Math.floor(sortedNumbers[sortedNumbers.length - 1] / 16)] ||
+            ''}{' '}
           {sortedNumbers[sortedNumbers.length - 1] || `--`}
         </div>
         <div>
